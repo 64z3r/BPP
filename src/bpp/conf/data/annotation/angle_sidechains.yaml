@@ -1,0 +1,5 @@
+angle_sidechains:
+  _target_: bpp.data.graph.annotation.edge.EdgeAngle
+  _partial_: true
+  name_vec_i: _sidechain_vector
+  name_vec_j: _sidechain_vector

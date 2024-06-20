@@ -1,0 +1,11 @@
+dims:
+  node: ???
+  edge: ???
+
+tail: ${data.embedding.module}
+body: ???
+head: ???
+
+log_net_stats: []
+
+checkpoint: null

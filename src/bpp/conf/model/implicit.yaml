@@ -1,0 +1,63 @@
+defaults:
+  - base
+
+dims:
+  node: 256
+  edge: 16
+
+body:
+  _target_: bpp.model.egnn.implicit.ImplicitEGNN
+  dims_node:
+    - ${model.dims.node}
+    - 128
+    - 256
+    - 128
+    - ${model.dims.node}
+  dims_edge:
+    - ${model.dims.edge}
+    - 256
+    - 256
+  dims_gate:
+    - 128
+  dims_pos:
+    - 128
+  dims_inject:
+    - 256
+  channels: 2
+  num_pos: 1
+  dim_pos: 3
+  num_encode: 16
+  pos_scale: 0.1
+  norm: true
+  clamp: 0.0
+  dropout: [0.1, 0.0]
+  dropout_edge: 0.0
+  jacobi_penalty: 0
+  residual_penalty: 0
+  activation: null
+  init: null
+  deq_args:
+    core: sliced
+    ift: true
+    hook_ift: true
+    f_solver: anderson
+    f_max_iter: 75
+    f_tol: 1e-3
+    b_solver: anderson
+    b_max_iter: 100
+    b_tol: 1e-6
+  solver_args:
+    tau: 1.0
+    m: 6
+    lam: 1e-4
+  unrecorded: false
+
+head:
+  _target_: torch.nn.Sequential
+  _args_:
+    - _target_: torch.nn.Linear
+      in_features: ${model.dims.node}
+      out_features: 256
+    - _target_: torch.nn.Linear
+      in_features: 256
+      out_features: 1

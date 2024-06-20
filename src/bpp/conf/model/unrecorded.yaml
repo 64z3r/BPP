@@ -1,0 +1,41 @@
+defaults:
+  - base
+
+dims:
+  node: 256
+  edge: 16
+
+body:
+  _target_: bpp.model.egnn.unrecorded.DeepUnrecordedEGNN
+  dims_node:
+    - ${model.dims.node}
+    - 64
+    - 256
+    - 64
+    - ${model.dims.node}
+  dims_edge:
+    - ${model.dims.edge}
+    - 256
+    - 256
+  dims_pos:
+    - 128
+  layers: 25
+  tied: false
+  channels: 4
+  num_pos: 1
+  dim_pos: 3
+  num_encode: 16
+  pos_scale: 1.0
+  norm: true
+  clamp: 0.0
+  dropout: [0.1, 0.0]
+  dropout_edge: 0.0
+  residual: true
+  activation: null
+  init: null
+  disable: false
+
+head:
+  _target_: torch.nn.Linear
+  in_features: ${model.dims.node}
+  out_features: 1

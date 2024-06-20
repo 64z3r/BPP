@@ -1,0 +1,5 @@
+_ligand_distances:
+  _target_: bpp.data.graph.annotation.node.LigandDistances
+  _partial_: true
+  store_names_as: ligand_names
+  exclude_waters: true

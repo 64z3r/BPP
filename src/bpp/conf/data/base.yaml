@@ -1,0 +1,54 @@
+construction: ???
+annotation: ???
+granularity: ???
+
+binding_site_cutoff: 4
+surface_cutoff: 2
+
+module:
+  _target_: bpp.data.PUResNetDataModule
+  train_sets: [scpdb]
+  val_sets: [coach]
+  test_sets: [bu48]
+  dataset_setup:
+    _target_: bpp.data.PUResNet
+    _partial_: true
+    root: ${project_root}/dataset/
+    conf:
+      _target_: bpp.data.graph.Configuration
+      _convert_: all
+      granularity: ${....granularity}
+      insertions: false
+      deprotonate: false
+      exclude_waters: true
+      alternate_locations: max_occupancy
+      binding_site_cutoff: ${....binding_site_cutoff}
+      surface_cutoff: ${....surface_cutoff}
+      construction: ${....construction}
+      annotation: ${....annotation}
+    transform:
+      _target_: bpp.data.transform.Sequential
+      transforms:
+        - _target_: bpp.data.transform.ConcatenateFeatures
+          node: [surface]
+          edge: [edge_kind]
+        - _target_: bpp.data.transform.CollapseTargets
+    n_jobs: -1
+    verbose: 1
+    cleanup_on_error: true
+  batch_size: 32
+  shuffle: true
+
+features:
+  stats_path: ./feature_stats.yaml
+  dims:
+    x: ???
+    pos: 3
+    edge_attr: ???
+  standardize: [x, pos, edge_attr]
+
+embedding:
+  dims:
+    element: ???
+    residue: ???
+  module: ???

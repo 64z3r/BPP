@@ -1,0 +1,3 @@
+_sidechain_vector:
+  _target_: bpp.data.graph.annotation.node.SidechainVector
+  _partial_: true

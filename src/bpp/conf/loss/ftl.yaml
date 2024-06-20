@@ -1,0 +1,5 @@
+_target_: bpp.loss.FocalTverskyLoss
+alpha: 0.7
+beta: 0.3
+gamma: 1.333
+smooth: 1.0

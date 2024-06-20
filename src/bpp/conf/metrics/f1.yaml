@@ -1,0 +1,11 @@
+f1:
+  _target_: torchmetrics.classification.f_beta.F1Score
+  task: binary
+  threshold: .5
+  num_classes: null
+  num_labels: null
+  average: micro
+  multidim_average: global
+  top_k: 1
+  ignore_index: null
+  validate_args: true

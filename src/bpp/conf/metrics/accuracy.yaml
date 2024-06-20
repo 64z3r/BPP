@@ -1,0 +1,11 @@
+acc:
+  _target_: torchmetrics.classification.accuracy.Accuracy
+  task: binary
+  threshold: .5
+  num_classes: null
+  num_labels: null
+  average: micro
+  multidim_average: global
+  top_k: 1
+  ignore_index: null
+  validate_args: true

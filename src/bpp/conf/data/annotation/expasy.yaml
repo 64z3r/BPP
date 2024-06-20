@@ -1,0 +1,3 @@
+expasy:
+  _target_: bpp.data.graph.annotation.node.Expasy
+  _partial_: true

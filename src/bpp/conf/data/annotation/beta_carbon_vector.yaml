@@ -1,0 +1,4 @@
+# hidden: not included in node features!
+_c_beta_vector:
+  _target_: bpp.data.graph.annotation.node.BetaCarbonVector
+  _partial_: true

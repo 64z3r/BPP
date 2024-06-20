@@ -1,0 +1,61 @@
+defaults:
+  - base
+  - construction:
+    - delaunay
+    - aromatic
+    # - cation_pi
+    - disulfide
+    - hydrogen_bond
+    - ionic
+    - peptide_bond
+  - annotation:
+    - expasy
+    - hydrogen_bond_acceptors
+    - hydrogen_bond_donors
+    - ligand_distances
+    - surface_distance
+    - sidechain_vector
+    - beta_carbon_vector
+    - sequence_neighbour_vector_n_to_c
+    - sequence_neighbour_vector_c_to_n
+    - angle_sequence_n_to_c_and_c_to_n
+    - angle_beta_carbon_and_sequence_n_to_c
+    - angle_beta_carbon_and_sequence_c_to_n
+    - angle_sidechain_and_sequence_n_to_c
+    - angle_sidechain_and_sequence_c_to_n
+    - angle_sidechain_and_beta_carbon
+    - angle_beta_carbons
+    - angle_sidechains
+  - _self_
+
+granularity: CA
+
+features:
+  dims:
+    x: 64
+    edge_attr: 8
+
+embedding:
+  dims:
+    element: 0
+    residue: 8
+  module:
+    _target_: torch.nn.Sequential
+    _args_:
+      - _target_: bpp.model.StandardizeFeatures
+        stats_path: ${data.features.stats_path}
+      - _target_: bpp.model.ResidueEmbedding
+        num_embeddings: 20
+        embedding_dim: ${data.embedding.dims.residue}
+      - _target_: bpp.model.LinearTransformNode
+        in_features:
+          _target_: builtins.sum
+          _args_:
+            - - ${data.features.dims.x}
+              - ${data.embedding.dims.residue}
+        out_features: ${model.dims.node}
+        bias: false
+      - _target_: bpp.model.LinearTransformEdge
+        in_features: ${data.features.dims.edge_attr}
+        out_features: ${model.dims.edge}
+        bias: false

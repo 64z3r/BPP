@@ -1,0 +1,5 @@
+angle_sidechain_and_beta_carbon:
+  _target_: bpp.data.graph.annotation.node.NodeAngle
+  _partial_: true
+  name_vec_i: _sidechain_vector
+  name_vec_j: _c_beta_vector

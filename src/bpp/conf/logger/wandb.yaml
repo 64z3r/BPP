@@ -1,0 +1,14 @@
+# @package logger.wandb
+_target_: pytorch_lightning.loggers.WandbLogger
+name: null
+save_dir: "."
+version: null
+offline: false
+dir: null
+id: null
+anonymous: null
+project: null
+log_model: false
+experiment: null
+prefix: ""
+checkpoint_name: null

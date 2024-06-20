@@ -1,0 +1,3 @@
+hbond_acceptors:
+  _target_: bpp.data.graph.annotation.node.HydrogenBondAcceptors
+  _partial_: true

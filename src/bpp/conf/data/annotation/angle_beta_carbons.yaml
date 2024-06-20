@@ -1,0 +1,5 @@
+angle_c_betas:
+  _target_: bpp.data.graph.annotation.edge.EdgeAngle
+  _partial_: true
+  name_vec_i: _c_beta_vector
+  name_vec_j: _c_beta_vector

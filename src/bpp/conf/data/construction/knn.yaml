@@ -1,0 +1,7 @@
+knn:
+  _target_: bpp.data.graph.construction.edge.KNN
+  _partial_: true
+  long_interaction_threshold: 30
+  k: 10
+  exclude_edges: []
+  exclude_self_loops: true

@@ -1,0 +1,4 @@
+_sequence_neighbour_vector_c_to_n:
+  _target_: bpp.data.graph.annotation.node.SequenceNeighbourVector
+  _partial_: true
+  n_to_c: false

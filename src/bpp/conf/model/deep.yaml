@@ -1,0 +1,28 @@
+defaults:
+  - base
+
+dims:
+  node: 256
+  edge: 16
+
+body:
+  _target_: bpp.model.egnn.DeepEGNN
+  layers: 7
+  dims_node:
+    - ${model.dims.node}
+    - 256
+  dims_edge:
+    - ${model.dims.edge}
+    - 256
+    - 128
+    - 128
+  num_pos: 1
+  dim_pos: 3
+  num_encode: 1
+  update: true
+  gate: true
+  norm: true
+  clamp: 0.0
+  dropout: [0.1, 0.0]
+  residual: true
+  activation: null

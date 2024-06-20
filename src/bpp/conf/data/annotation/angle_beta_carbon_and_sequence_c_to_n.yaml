@@ -1,0 +1,5 @@
+angle_c_beta_and_sequence_c_to_n:
+  _target_: bpp.data.graph.annotation.node.NodeAngle
+  _partial_: true
+  name_vec_i: _c_beta_vector
+  name_vec_j: _sequence_neighbour_vector_c_to_n

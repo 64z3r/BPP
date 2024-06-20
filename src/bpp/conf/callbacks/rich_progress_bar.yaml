@@ -1,0 +1,15 @@
+# @package callbacks.rich_progress_bar
+_target_: pytorch_lightning.callbacks.progress.RichProgressBar
+refresh_rate: 1
+leave: false
+theme:
+  _target_: pytorch_lightning.callbacks.progress.rich_progress.RichProgressBarTheme
+  description: white
+  progress_bar: "#6206E0"
+  progress_bar_finished: "#6206E0"
+  progress_bar_pulse: "#6206E0"
+  batch_progress: white
+  time: grey54
+  processing_speed: grey70
+  metrics: white
+console_kwargs: null

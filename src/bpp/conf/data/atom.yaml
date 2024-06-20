@@ -1,0 +1,45 @@
+defaults:
+  - base
+  - construction:
+    - covalent
+    - knn
+  - annotation:
+    - ligand_distances
+    - surface_distance
+  - _self_
+
+granularity: atom
+
+features:
+  dims:
+    x: 1
+    edge_attr: 2
+
+embedding:
+  dims:
+    element: 4
+    residue: 12
+  module:
+    _target_: torch.nn.Sequential
+    _args_:
+      - _target_: bpp.model.StandardizeFeatures
+        stats_path: ${data.features.stats_path}
+      - _target_: bpp.model.ResidueEmbedding
+        num_embeddings: 20
+        embedding_dim: ${data.embedding.dims.residue}
+      - _target_: bpp.model.ElementEmbedding
+        num_embeddings: 5
+        embedding_dim: ${data.embedding.dims.element}
+      - _target_: bpp.model.LinearTransformNode
+        in_features:
+          _target_: builtins.sum
+          _args_:
+            - - ${data.features.dims.x}
+              - ${data.embedding.dims.element}
+              - ${data.embedding.dims.residue}
+        out_features: ${model.dims.node}
+        bias: false
+      - _target_: bpp.model.LinearTransformEdge
+        in_features: ${data.features.dims.edge_attr}
+        out_features: ${model.dims.edge}
+        bias: false

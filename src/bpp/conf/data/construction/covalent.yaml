@@ -1,0 +1,4 @@
+covalent:
+  _target_: bpp.data.graph.construction.edge.Covalent
+  _partial_: true
+  tolerance: 0.56

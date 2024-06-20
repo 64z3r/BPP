@@ -1,0 +1,40 @@
+defaults:
+  - base
+
+dims:
+  node: 256
+  edge: 16
+
+body:
+  _target_: bpp.model.egnn.reversible.DeepReversibleEGNN
+  dims_node:
+    - ${model.dims.node}
+    - 256
+  dims_edge:
+    - ${model.dims.edge}
+    - 256
+    - 128
+    - 128
+  num_pos: 1
+  dim_pos: 3
+  num_encode: 16
+  blocks: 4
+  layers: 50
+  tied: false
+  update: true
+  gate: true
+  norm: true
+  clamp: 0.0
+  dropout: [0.1, 0.0]
+  dropout_edge: 0.0
+  activation: null
+  init: null
+  disable: false
+  # layer_cls:
+  #   _target_: bpp.model.reversible.SimpleReversibleEGNN
+  #   _partial_: true
+
+head:
+  _target_: torch.nn.Linear
+  in_features: ${model.dims.node}
+  out_features: 1

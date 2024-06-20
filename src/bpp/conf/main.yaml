@@ -1,0 +1,86 @@
+hydra:
+  job:
+    chdir: true
+
+defaults:
+  - data: atom
+  - model: deep
+  - loss: ftl
+  - metrics:
+      - f1
+      - precision
+      - recall
+      - jaccard
+  - optimizer: nadam
+  # - optimizer: adamw
+  - trainer
+  - logger:
+      - wandb
+      - csv
+  - callbacks:
+      - checkpoint
+      - rich_progress_bar
+      - rich_model_summary
+  - _self_
+
+project_root: ${oc.env:PROJECT_ROOT}
+seed: 42
+
+data:
+  module:
+    batch_size: 64
+    shuffle: true
+    num_workers: 8
+
+# model:
+#   dims:
+#     node:
+#       input: 128
+#       hidden: 64
+#     edge:
+#       input: 256
+#       hidden: 128
+#     coord:
+#       hidden: 32
+#   body:
+#     layers: 9
+
+model:
+  log_net_stats:
+    - grad_norm
+    - weight_stat
+    - pos_coef
+    - deq_abs
+    - deq_rel
+    - deq_nstep
+    - deq_sradius
+
+loss:
+  alpha: 0.6
+  beta: 0.4
+  gamma: 1.33333
+
+optimizer:
+  lr: 1e-4
+  # weight_decay: 1e-1
+
+logger:
+  wandb:
+    project: BPP
+  csv:
+    save_dir: ./logs
+    name: protein
+
+callbacks:
+  checkpoint:
+    monitor: val/iou
+    mode: max
+    every_n_train_steps: 10
+    save_on_train_epoch_end: false
+
+trainer:
+  precision: 32 # bf16-mixed
+  max_epochs: 100
+  log_every_n_steps: 10
+  val_check_interval: 0.1
+  # gradient_clip_val: .02
